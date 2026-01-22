@@ -4,22 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Eng</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>VibeCheck 411L</h1>
-    <div>
-    <button id="btnFortune">🔮 Fortune</button>
-    <button id="btnJoke">😂 Joke</button>
-    <button data-mood="happy" class="btnMood">😄 Happy</button>
-    <button data-mood="tired" class="btnMood">🥱 Tired</button>
-    <button data-mood="stressed" class="btnMood">😵‍💫 Stressed</button>
-    <button id="btnSmash">💥 SMASH!</button>
-    <button id="btnSecret">🕵️ Secret</button>
-  </div>
+  <header class="site-header">
+    <h1 class="title">VibeCheck 411L</h1>
+    <p class="tag">A lighthearted vibe assistant — press a button and see what happens ✨</p>
+  </header>
 
-  <h2>Output</h2>
-  <pre id="out">Ready...</pre>
+  <main class="container">
+    <section class="controls" aria-label="controls">
+      <button class="btn" id="btnFortune">🔮 Fortune</button>
+      <button class="btn" id="btnJoke">😂 Joke</button>
+      <button class="btn btn-mood btnMood" data-mood="happy">😄 Happy</button>
+      <button class="btn btn-mood btnMood" data-mood="tired">🥱 Tired</button>
+      <button class="btn btn-mood btnMood" data-mood="stressed">😵‍💫 Stressed</button>
+      <button class="btn btn-smash" id="btnSmash">💥 SMASH!</button>
+      <button class="btn" id="btnSecret">🕵️ Secret</button>
+    </section>
+
+    <section class="output-section">
+      <h2 class="output-title">Output</h2>
+      <div id="out" class="output" role="status">
+        <div class="placeholder">Ready...</div>
+      </div>
+    </section>
+  </main>
 
   <script src="app.js"></script>
 </body>
-</html>
+</html> 

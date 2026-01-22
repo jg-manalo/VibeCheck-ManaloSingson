@@ -7,7 +7,60 @@ const out = document.getElementById("out");
 const API_BASE = "http://localhost:3000";
 
 function show(obj) {
-  out.textContent = typeof obj === "string" ? obj : JSON.stringify(obj, null, 2);
+  // Render HTML blocks into the output container.
+  out.innerHTML = '';
+
+  if (typeof obj === 'string') {
+    const p = document.createElement('p');
+    p.className = 'out-message';
+    p.textContent = obj;
+    out.appendChild(p);
+    return;
+  }
+
+  if (obj && typeof obj === 'object') {
+    let hasContent = false;
+
+    if (obj.message && typeof obj.message === 'string') {
+      const p = document.createElement('p');
+      p.className = 'out-message';
+      p.textContent = obj.message;
+      out.appendChild(p);
+      hasContent = true;
+    }
+
+    Object.keys(obj).forEach(key => {
+      if (key === 'message') return;
+      hasContent = true;
+      const val = obj[key];
+
+      if (val === null || typeof val !== 'object') {
+        const row = document.createElement('div');
+        row.className = 'out-row';
+        const k = document.createElement('span'); k.className = 'out-key'; k.textContent = key;
+        const colon = document.createElement('span'); colon.textContent = ': ';
+        const v = document.createElement('span'); v.className = 'out-val'; v.textContent = String(val);
+        row.appendChild(k); row.appendChild(colon); row.appendChild(v);
+        out.appendChild(row);
+      } else {
+        const details = document.createElement('details');
+        const summary = document.createElement('summary');
+        summary.textContent = key;
+        const pre = document.createElement('pre');
+        pre.textContent = JSON.stringify(val, null, 2);
+        details.appendChild(summary);
+        details.appendChild(pre);
+        out.appendChild(details);
+      }
+    });
+
+    if (!hasContent) {
+      out.textContent = String(obj);
+    }
+    return;
+  }
+
+  out.textContent = String(obj);
 }
 
 async function getJSON(url) {
