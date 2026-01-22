@@ -48,6 +48,12 @@ app.get("/api/fortune", (req, res) => {
   res.json({ fortune: pick });
 });
 
+// GET /api/joke -> returns one random joke
+app.get("/api/joke", (req, res) => {
+  const pick = jokes[Math.floor(Math.random() * jokes.length)];
+  res.json({ joke: pick });
+});
+
 
 // Start server
 app.listen(PORT, () => {
