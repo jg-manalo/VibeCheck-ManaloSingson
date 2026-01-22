@@ -70,6 +70,28 @@ app.get("/api/vibe", (req, res) => {
   res.json({ mood, ...vibe });
 });
 
+// POST /api/smash -> increases counter and returns the updated value
+app.post("/api/smash", (req, res) => {
+  smashes += 1;
+  res.json({ smashes });
+});
+
+// GET /api/smashes -> returns current counter
+app.get("/api/smashes", (req, res) => {
+  res.json({ smashes });
+});
+
+// GET /api/secret?code=411L -> hidden message if code is correct
+app.get("/api/secret", (req, res) => {
+  const code = req.query.code;
+
+  if (code === "411L") {
+    return res.json({ message: "🎉 Secret unlocked: +10 luck on your next merge!" });
+  }
+
+  res.status(403).json({ message: "Nope 😄 Try code=411L" });
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`VibeCheck API running at http://localhost:${PORT}`);
