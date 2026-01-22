@@ -54,6 +54,21 @@ app.get("/api/joke", (req, res) => {
   res.json({ joke: pick });
 });
 
+// GET /api/vibe?mood=happy|tired|stressed
+app.get("/api/vibe", (req, res) => {
+  const mood = (req.query.mood || "").toLowerCase();
+  const vibe = vibeMap[mood];
+
+  if (!vibe) {
+    return res.json({
+      mood: mood || "unknown",
+      emoji: "🤔",
+      message: "Try mood=happy, tired, or stressed.",
+    });
+  }
+
+  res.json({ mood, ...vibe });
+});
 
 // Start server
 app.listen(PORT, () => {
